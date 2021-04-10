@@ -1,0 +1,21 @@
+{
+	"restartable": "rs",
+	"ignore": [
+		".gitignore",
+		".eslintignore",
+		".prettierignore",
+		".eslintrc",
+		".prettierrc",
+		"README.md",
+		".git",
+		".vscode",
+		"node_modules",
+		"dist"
+	],
+	"verbose": true,
+	"exec": "ts-node src/server.ts",
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"ext": "js,json,ts"
+}

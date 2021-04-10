@@ -1,0 +1,61 @@
+{
+	"name": "tech-alchemy-task2",
+	"version": "1.0.0",
+	"description": "This project contains the solution for the Tech Alchemy assignment - Task 2",
+	"main": "dist/src/server.js",
+	"scripts": {
+		"prepare": "husky install",
+		"prepare-commit-msg-hook": "exec < /dev/tty && git cz --hook || true",
+		"pre-commit-hook": "npm run prettier && npm run lint",
+		"build": "rimraf ./dist && tsc",
+		"lint": "eslint . --ext .ts",
+		"lint-fix": "eslint . --ext .ts --fix",
+		"prettier": "prettier --ignore-path .prettierignore --config .prettierrc \"./**/*\" --write",
+		"dev": "nodemon",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"engines": {
+		"node": ">=14.15.1"
+	},
+	"engineStrict": true,
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/apalesujay/tech-alchemy-task2.git"
+	},
+	"keywords": [
+		"nodejs",
+		"typescript",
+		"express"
+	],
+	"author": "Sujay Apale",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/apalesujay/tech-alchemy-task2/issues"
+	},
+	"homepage": "https://github.com/apalesujay/tech-alchemy-task2#readme",
+	"devDependencies": {
+		"@types/eslint": "^7.2.8",
+		"@types/node": "^14.14.37",
+		"@typescript-eslint/eslint-plugin": "^4.21.0",
+		"@typescript-eslint/parser": "^4.21.0",
+		"commitizen": "^4.2.3",
+		"cz-conventional-changelog": "^3.3.0",
+		"eslint": "^7.23.0",
+		"eslint-config-airbnb-base": "^14.2.1",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-prettier": "^3.3.1",
+		"husky": "^6.0.0",
+		"nodemon": "^2.0.7",
+		"prettier": "^2.2.1",
+		"rimraf": "^3.0.2",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.2.4"
+	},
+	"dependencies": {}
+}

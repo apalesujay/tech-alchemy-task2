@@ -1,0 +1,20 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint", "prettier"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"airbnb-base",
+		"prettier"
+	],
+	"rules": {
+		"import/no-unresolved": "off",
+		"import/extensions": "off",
+		"prettier/prettier": "error",
+		"no-unused-vars": "off",
+		"no-async-promise-executor": "off",
+		"lines-between-class-members": "off"
+	}
+}
