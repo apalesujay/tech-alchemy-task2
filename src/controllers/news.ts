@@ -14,7 +14,7 @@ const getNews = () => async (
 	next: NextFunction
 ): Promise<Response | void> => {
 	try {
-		const apiKey = '262eacaffdfb43a8ae7796715e790ed2';
+		const apiKey = process.env.NEWS_API_KEY ?? '';
 		const language = 'en';
 		const pageSize = 20;
 		let { page } = req.query;

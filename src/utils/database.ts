@@ -3,8 +3,7 @@ import { connect, ConnectionOptions, Mongoose } from 'mongoose';
 const createConnection = (): Promise<Mongoose> =>
 	new Promise(async (resolve, reject) => {
 		try {
-			const dbUri =
-				'mongodb+srv://tempUser:p1a2s3s4w5o6r7d8@sanbox.b4fr8.mongodb.net/sandoxdb?retryWrites=true&w=majority';
+			const dbUri = process.env.MONGODB_URI ?? '';
 
 			// Database Connection options
 			const databaseOptions: ConnectionOptions = {
