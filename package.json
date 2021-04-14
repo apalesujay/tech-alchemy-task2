@@ -4,14 +4,15 @@
 	"description": "This project contains the solution for the Tech Alchemy assignment - Task 2",
 	"main": "dist/src/server.js",
 	"scripts": {
+		"start": "npm run build && set NODE_ENV=production && node dist/src/server.js",
 		"prepare": "husky install",
 		"prepare-commit-msg-hook": "exec < /dev/tty && git cz --hook || true",
-		"pre-commit-hook": "npm run prettier && npm run lint",
+		"pre-commit-hook": "npm run prettier && npm run lint && npm test",
 		"build": "rimraf ./dist && tsc",
 		"lint": "eslint . --ext .ts",
 		"lint-fix": "eslint . --ext .ts --fix",
 		"prettier": "prettier --ignore-path .prettierignore --config .prettierrc \"./**/*\" --write",
-		"dev": "nodemon",
+		"dev": "set NODE_ENV=development && nodemon",
 		"test": "jest"
 	},
 	"config": {
@@ -75,6 +76,7 @@
 		"body-parser": "^1.19.0",
 		"cookie-parser": "^1.4.5",
 		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"helmet": "^4.4.1",
 		"jsonwebtoken": "^8.5.1",

@@ -3,7 +3,7 @@ import { sign, SignOptions, verify, VerifyOptions } from 'jsonwebtoken';
 import AppError from './error';
 import { ErrorStatusCode } from './response';
 
-const secretKey = 'secretKey';
+const secretKey = process.env.JWT_SECRET ?? '';
 
 export const createRefreshToken = (): string => {
 	const refreshToken = v4();

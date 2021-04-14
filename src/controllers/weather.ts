@@ -10,7 +10,7 @@ const getWeatherForecast = () => async (
 	next: NextFunction
 ): Promise<Response | void> => {
 	try {
-		const apiKey = 'deddd995c2a1b8347462b0c11aa747a2';
+		const apiKey = process.env.WEATHER_API_KEY ?? '';
 		const latitude = '18.524766';
 		const longitude = '73.792927';
 		const location = 'Pune';

@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { json, urlencoded } from 'body-parser';
 import cookieParser from 'cookie-parser';
+import { config, DotenvConfigOptions, DotenvParseOptions } from 'dotenv';
 
 import authRoutes from './routes/auth';
 import weatherRoutes from './routes/weather';
@@ -20,12 +21,26 @@ class App {
 	}
 
 	private async init(): Promise<void> {
-		this.app.set('port', process.env.port || 3000);
+		if (process.env.NODE_ENV === 'development') {
+			const dotEnvConfigOptions: DotenvConfigOptions = {
+				path: `${__dirname}/../.env.dev`
+			};
+
+			config(dotEnvConfigOptions);
+		} else {
+			const dotEnvConfigOptions: DotenvConfigOptions = {
+				path: `${__dirname}/../.env`
+			};
+
+			config(dotEnvConfigOptions);
+		}
+
+		this.app.set('port', process.env.PORT ?? 3000);
 		this.app.use(cors());
 		this.app.use(helmet());
 		this.app.use(urlencoded({ extended: false }));
 		this.app.use(json());
-		this.app.use(cookieParser('secretKey'));
+		this.app.use(cookieParser(process.env.COOKIE_SECRET ?? ''));
 		this.app.use(authRoutes);
 		this.app.use(weatherRoutes);
 		this.app.use(newsRoutes);
