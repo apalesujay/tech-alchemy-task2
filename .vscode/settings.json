@@ -1,0 +1,12 @@
+{
+	"typescript.updateImportsOnFileMove.enabled": "prompt",
+	"git.ignoreLimitWarning": true,
+	"prettier.arrayExpand": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"editor.formatOnType": false,
+	"eslint.alwaysShowStatus": true
+}
