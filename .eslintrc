@@ -14,7 +14,11 @@
 		"import/extensions": "off",
 		"prettier/prettier": "error",
 		"no-unused-vars": "off",
+		"no-restricted-globals": "off",
 		"no-async-promise-executor": "off",
-		"lines-between-class-members": "off"
+		"lines-between-class-members": "off",
+		"no-underscore-dangle": "off",
+		"no-shadow": "off",
+		"@typescript-eslint/no-shadow": "error"
 	}
 }
