@@ -1,5 +1,6 @@
 import { ErrorStatusCode } from './response';
 
+// Custom class for Errors
 class AppError extends Error {
 	httpStatusCode: ErrorStatusCode;
 

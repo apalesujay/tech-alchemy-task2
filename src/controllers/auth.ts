@@ -29,6 +29,7 @@ export const signup = () => async (
 			password: string;
 		} = req.body;
 
+		// If name is ane empty string or has length greater than 30 characters, throw an error
 		if (name === '' || name.length > 30) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -36,6 +37,7 @@ export const signup = () => async (
 			);
 		}
 
+		// If email is invalid, throw an error
 		if (!emailRegex.test(email)) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -43,6 +45,7 @@ export const signup = () => async (
 			);
 		}
 
+		// IF password length is less than 8 characters, throw an error
 		if (password.length < 8) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -56,6 +59,7 @@ export const signup = () => async (
 			password
 		};
 
+		// Save data to the users collection in the mongodb database
 		await User.create(userData);
 
 		return successResponse(
@@ -86,6 +90,7 @@ export const login = () => async (
 			password: string;
 		} = req.body;
 
+		// If email is invalid, throw an error
 		if (!emailRegex.test(email)) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -93,6 +98,7 @@ export const login = () => async (
 			);
 		}
 
+		// If the length of password is less than 8 characters, throw an error
 		if (password.length < 8) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -112,8 +118,10 @@ export const login = () => async (
 			refreshToken: 1
 		};
 
+		// Search for the registered user in the database
 		const user = await User.findOne(dataFilter, dataFields);
 
+		// If user data is not found in the database, throw an error
 		if (!user) {
 			throw new AppError(
 				ErrorStatusCode['404_NOT_FOUND'],
@@ -121,8 +129,10 @@ export const login = () => async (
 			);
 		}
 
+		// Compare password provided by user with the password hash in the database
 		const isPasswordMatch = await user?.comparePassword(password);
 
+		// If password does not match, throw an error
 		if (!isPasswordMatch) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
@@ -130,19 +140,24 @@ export const login = () => async (
 			);
 		}
 
+		// Create refresh token
 		const refreshToken = createRefreshToken();
 
+		// Set refresh token as the signed HTTP only cookie in the response headers
 		res.cookie('rt', refreshToken, {
 			httpOnly: true,
 			signed: true
 		});
 
+		// Create JWT access token
 		const accessToken = createAccessToken({
 			id: user.get('_id')
 		});
 
+		// Set the access token as the bearer token in the response headers
 		res.setHeader('Authorization', `Bearer ${accessToken}`);
 
+		// Update the refresh token in the database
 		await User.updateOne(
 			{
 				email
@@ -180,6 +195,7 @@ export const logout = () => async (
 		const { user }: { user: UserDocument } = req.body;
 		const { rt } = req.signedCookies;
 
+		// Remove the refresh token from the database
 		await user.update({
 			$pull: {
 				devices: {
@@ -211,19 +227,24 @@ export const refreshSession = () => async (
 		const { decoded, user, deviceIndex } = req.body;
 		const { rt } = req.signedCookies;
 
+		// Create a new refresh token
 		const refreshToken = createRefreshToken();
 
+		// Set refresh token as the signed HTTP only cookie in the response headers
 		res.cookie('rt', refreshToken, {
 			httpOnly: true,
 			signed: true
 		});
 
+		// Create a new JWT access token
 		const accessToken = createAccessToken({
 			id: user.get('_id')
 		});
 
+		// Set the access token as the bearer token in the response headers
 		res.setHeader('Authorization', `Bearer ${accessToken}`);
 
+		// Remove the old refresh token from the database and update the new refresh token in the database
 		(user.devices as Array<any>).splice(deviceIndex);
 		(user.devices as Array<any>).push({
 			refreshToken,
