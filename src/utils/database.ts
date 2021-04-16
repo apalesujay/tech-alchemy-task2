@@ -1,5 +1,6 @@
 import { connect, ConnectionOptions, Mongoose } from 'mongoose';
 
+// Function to establish the database connection
 const createConnection = (): Promise<Mongoose> =>
 	new Promise(async (resolve, reject) => {
 		try {

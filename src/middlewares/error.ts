@@ -15,6 +15,7 @@ const handleError = (
 	const message: string =
 		status === 500 ? 'Something went wrong at the server' : err.message;
 
+	// Keep log of the unknow server side errors
 	if (status === 500) {
 		log.error(`${message}\n${err.stack}`);
 	}

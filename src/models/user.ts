@@ -58,6 +58,7 @@ const UserSchema = new Schema<UserDocument>(
 	{ timestamps: true }
 );
 
+// Method to convert the plain password string into hashed string
 async function save(this: any, next: any) {
 	const user = this as UserDocument;
 
@@ -72,6 +73,7 @@ async function save(this: any, next: any) {
 
 UserSchema.pre('save', save);
 
+// Method to compare the plain password with the hashed password from the database
 async function comparePassword(this: any, password: string) {
 	const isMatch = await compareHash(password, this.password);
 

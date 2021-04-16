@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import AppError from '../utils/error';
 import { ErrorStatusCode } from '../utils/response';
 
+// Authentication middlware to check if the user is an authenticated user
 const auth = (ignoreExpiration?: true) => async (
 	req: Request,
 	res: Response,
