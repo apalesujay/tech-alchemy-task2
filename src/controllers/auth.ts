@@ -30,7 +30,7 @@ export const signup = () => async (
 		} = req.body;
 
 		// If name is ane empty string or has length greater than 30 characters, throw an error
-		if (name === '' || name.length > 30) {
+		if (name === undefined || name === '' || name.length > 30) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
 				'name must be min 1 and max 30 characters long'
@@ -46,10 +46,21 @@ export const signup = () => async (
 		}
 
 		// IF password length is less than 8 characters, throw an error
-		if (password.length < 8) {
+		if (password === undefined || password.length < 8) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
 				'Password must be min 8 characters long'
+			);
+		}
+
+		const isUserRegistered = await User.findOne({
+			email
+		});
+
+		if (isUserRegistered) {
+			throw new AppError(
+				ErrorStatusCode['400_BAD_REQUEST'],
+				'Email is already registered'
 			);
 		}
 
@@ -99,7 +110,7 @@ export const login = () => async (
 		}
 
 		// If the length of password is less than 8 characters, throw an error
-		if (password.length < 8) {
+		if (password === undefined || password.length < 8) {
 			throw new AppError(
 				ErrorStatusCode['400_BAD_REQUEST'],
 				'Password must be atleast 8 characters long'

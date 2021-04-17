@@ -91,3 +91,5 @@ const { app } = new App();
 app.listen(app.get('port'), () => {
 	log.info(`Server is running on port: ${app.get('port')}`);
 });
+
+export default app;
