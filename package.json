@@ -2,9 +2,9 @@
 	"name": "tech-alchemy-task2",
 	"version": "1.0.0",
 	"description": "This project contains the solution for the Tech Alchemy assignment - Task 2",
-	"main": "dist/src/server.js",
+	"main": "dist/server.js",
 	"scripts": {
-		"start": "npm run build && set NODE_ENV=production && node dist/src/server.js",
+		"start": "npm run build && set NODE_ENV=production && node dist/server.js",
 		"prepare": "husky install",
 		"prepare-commit-msg-hook": "exec < /dev/tty && git cz --hook || true",
 		"pre-commit-hook": "npm run prettier && npm run lint && npm test",
@@ -86,7 +86,6 @@
 		"jsonwebtoken": "^8.5.1",
 		"lru-cache": "^6.0.0",
 		"luxon": "^1.26.0",
-		"moment": "^2.29.1",
 		"mongoose": "^5.12.3",
 		"uuid": "^8.3.2",
 		"winston": "^3.3.3"
