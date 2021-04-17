@@ -1,4 +1,4 @@
-# tech-alchemy-task2
+# Tech Alchemy Assignment - Task 2
 This repository contains the solution for the Tech Alchemy assignment - Task 2
 
 <details open="open">
@@ -11,6 +11,9 @@ This repository contains the solution for the Tech Alchemy assignment - Task 2
     </li>
     <li>
     	<a href="#how-to-use">How to use</a>
+    </li>
+        <li>
+    	<a href="#conventional-commits">Conventional Commits</a>
     </li>
     <li>
     	<a href="#dependencies">Dependencies</a>
@@ -45,8 +48,15 @@ You will find the API documentation on the following link:
 ### Auth APIs
 1. Use `/signup` API for user registration.
 2. Use `/login` API for login.
-3. Use `/refresh` API for refreshing the session.
-4. Use `/logout` API to logout.
+3. Use `/refresh` API for refreshing the session. This is a protected API.
+4. Use `/logout` API to logout. This is a protected API.
+
+This project uses access token and refresh token for handling the authentication. These two types of tokens are needed to access the protected routes:
+* Access Token i.e. Json Web Token is valid for 1hr.
+* Refresh Token i.e. simple UUID v4 String which is valid for 1 month, to be used for re-assigning a combination of access token (JWT) and refresh token (cookie) to the user.
+* If the current access token is expired, a request to `/refresh` must be made with current access token and refresh token to get a new set of access token and refresh token.
+* If current refresh token is expired, user must login again using `/login` API to get the new set of access token and refresh token.
+* Access token must be passed as a Bearer token in the Authorization header of the request and refresh token must be passed as a cookie in the request to access the protected APIs.
 
 ### Weather API
 Weather API does not require authentication. Anyone can access this API.
@@ -54,6 +64,9 @@ Weather API does not require authentication. Anyone can access this API.
 ### News API
 
 `/news` API is a protected route. User must login to use this API.
+
+## <a id="conventional-commits">Conventional Commits</a>
+This project follows the rules for writing commit messages as specified by the [ConventionalCommits.org](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## <a id="dependencies">Dependencies</a>
 
